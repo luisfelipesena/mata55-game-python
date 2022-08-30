@@ -1,0 +1,5 @@
+canela,acne,ala,alce,alça,anca,anel,anã,cal,cana,canal,cela,cena,clã,ela,laca,lance,lança
+borrão,aro,bar,barro,boa,boro,borra,broa,oba,obra,obrar,ora,orar,rabo,raro,robô
+editor,direto,dito,doer,dor,dote,ido,ode,rei,reto,rio,rito,teor,ter,tio,tiro,trio,tédio
+forçar,afro,arco,aro,aço,caro,carro,coar,cor,corar,cão,faro,foca,focar,fora,forca,forra,força,fraco,oca,ora,orar,orca,orçar,raro,roca,roça,roçar
+cobrar,arco,aro,aço,bar,barco,barro,baço,boa,boca,borra,braço,broa,broca,brocar,cabo,caro,carro,coar,cobra,cor,corar,cão,oba,obra,obrar,oca,ora,orar,orca,orçar,rabo,raro,roca,roça,roçar
