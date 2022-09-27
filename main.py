@@ -35,11 +35,9 @@ class MainWindow(pyglet.window.Window):
     menu_y = (window_height / 2)
     self.menu = Menu(menu_x, menu_y, window_width, window_height)
     # Score
-    score_x = 5
-    score_y = 535
-    score_width = 150
-    score_height = 60
-    self.score = Score(score_x, score_y, score_width, score_height)
+    score_x = walls_padding + 50
+    score_y = (window_height - (walls_padding * 2))
+    self.score = Score(score_x, score_y)
     # Teclas Pressionada
     self.right_arrow_pressed = False
     self.left_arrow_pressed = False
@@ -58,6 +56,8 @@ class MainWindow(pyglet.window.Window):
 
     if self.up_arrow_pressed or self.down_arrow_pressed or self.enter_pressed:
       self.update_menu()
+    if self.paddle.visible == True:
+      pyglet.clock.schedule_interval(self.update_game, 1 / 2)
     
   def on_key_press(self, symbol, modifiers):
     if symbol == pyglet.window.key.ESCAPE:
@@ -98,7 +98,7 @@ class MainWindow(pyglet.window.Window):
   def update_menu(self):
     if self.up_arrow_pressed or self.down_arrow_pressed or self.enter_pressed:
       self.menu.update(self.up_arrow_pressed, self.down_arrow_pressed, self.enter_pressed)
-    if self.enter_pressed and self.menu.visible == False:
+    if self.enter_pressed and self.menu.menu.visible == False:
       self.paddle.visible = True
       self.ball.visible = True
       self.score.visible = True
@@ -110,8 +110,4 @@ if __name__ == '__main__':
     window.push_handlers(window.mouse_handler)
     window.push_handlers(window.paddle.keys_handler)
 
-    # Clock do jogo 
-    if window.paddle.visible == True:
-      pyglet.clock.schedule_interval(window.update_game, 1 / 60)
-  
     pyglet.app.run()
