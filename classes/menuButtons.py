@@ -19,12 +19,11 @@ class MenuButtons:
       if self.selected == 0:
         self.start.visible = False
         self.exit.visible = False
-        
         pass
       else:
         pyglet.app.exit()
 
-    def update(self, menu_visible,up_arrow_pressed, down_arrow_pressed, enter_pressed):
+    def update(self, up_arrow_pressed, down_arrow_pressed, enter_pressed):
       self.menu_items[self.selected].color = (255, 255, 255, 255)
       if up_arrow_pressed:
         newSelected = self.selected - 1
