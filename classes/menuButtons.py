@@ -27,10 +27,20 @@ class MenuButtons:
     def update(self, menu_visible,up_arrow_pressed, down_arrow_pressed, enter_pressed):
       self.menu_items[self.selected].color = (255, 255, 255, 255)
       if up_arrow_pressed:
-        self.selected -= 1;
+        newSelected = self.selected - 1
+        if newSelected >= 0 and newSelected < len(self.menu_items):
+          self.selected = newSelected;
+        else:
+          self.selected = len(self.menu_items) - 1;
+        
       if down_arrow_pressed:
-        print(self.selected)
-        self.selected += 1;
+        newSelected = self.selected + 1
+        if newSelected >= 0 and newSelected < len(self.menu_items):
+          self.selected = newSelected;
+        else:
+          self.selected = 0;
+          
       if enter_pressed:
         self.onEnter()
+        
       self.menu_items[self.selected].color = (255, 0, 0, 255)
