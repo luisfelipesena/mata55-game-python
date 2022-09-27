@@ -17,4 +17,6 @@ class Menu:
         self.menu_buttons.draw()
 
     def update(self, up_arrow_pressed, down_arrow_pressed, enter_pressed):
-      self.menu_buttons.update(self.menu.visible, up_arrow_pressed, down_arrow_pressed, enter_pressed)
+      if self.menu_buttons.selected == 0 and enter_pressed:
+        self.menu.visible = False
+      self.menu_buttons.update(up_arrow_pressed, down_arrow_pressed, enter_pressed)
