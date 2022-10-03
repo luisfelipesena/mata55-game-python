@@ -40,26 +40,27 @@ class MenuButtons:
 
     def inclui_ponto(self, x, y):
         # Ajustes para incluir label - talvez seja melhor rever lógica
-        start = (
-            x + 40 >= self.start.x
-            and x + 50 <= self.start.x + self.start.content_width
-            and y + 10 >= self.start.y
-            and y + 10 <= self.start.y + self.start.content_height
-        )
-
-        end = (
-            x + 40 >= self.exit.x
-            and x + 30 <= self.exit.x + self.exit.content_width
-            and y + 10 >= self.exit.y
-            and y + 10 <= self.exit.y + self.exit.content_height
-        )
-
-        if start:
-            return "start"
-        elif end:
-            return "exit"
-        else:
-            return None
+      if self.start.visible and self.exit.visible:
+          start = (
+              x + 40 >= self.start.x
+              and x + 50 <= self.start.x + self.start.content_width
+              and y + 10 >= self.start.y
+              and y + 10 <= self.start.y + self.start.content_height
+          )
+  
+          end = (
+              x + 40 >= self.exit.x
+              and x + 30 <= self.exit.x + self.exit.content_width
+              and y + 10 >= self.exit.y
+              and y + 10 <= self.exit.y + self.exit.content_height
+          )
+  
+          if start:
+              return "start"
+          elif end:
+              return "exit"
+          else:
+              return None
 
     def update(self, window):
         self.menu_items[self.selected].color = (255, 255, 255, 255)

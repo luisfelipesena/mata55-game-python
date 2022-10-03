@@ -22,12 +22,15 @@ class MainWindow(pyglet.window.Window):
         self.walls = Walls()
         # Paddle - Raquete
         self.paddle = Paddle()
+        pyglet.clock.schedule_interval(self.paddle.update, 1 / utils.fps)
         # Ball - Bola
         self.ball = Ball()
         # Menu
         self.menu = Menu()
+        pyglet.clock.schedule_interval(self.update_menu, 1 / (utils.fps / 10))
         # Score
         self.score = Score()
+        pyglet.clock.schedule_interval(self.score.update, 1)
         # Teclas Pressionada
         self.right_arrow_pressed = False
         self.left_arrow_pressed = False
@@ -45,11 +48,6 @@ class MainWindow(pyglet.window.Window):
         self.ball.draw()
         self.menu.draw()
         self.score.draw()
-        # Updates
-        if self.up_arrow_pressed or self.down_arrow_pressed or self.enter_pressed:
-            self.update_menu()
-        if self.paddle.visible == True:
-            pyglet.clock.schedule_interval(self.update_game, 1)
 
     def on_key_press(self, symbol, modifiers):
         if symbol == pyglet.window.key.ESCAPE:
@@ -81,13 +79,8 @@ class MainWindow(pyglet.window.Window):
         res = self.menu.menu_buttons.inclui_ponto(x, y)
         print(res)
 
-    #  Será puxada para atualizar o game
-    def update_game(self, arg):
-        if self.right_arrow_pressed or self.left_arrow_pressed:
-            self.paddle.update()
-
     #  Será puxada para atualizar o menu
-    def update_menu(self):
+    def update_menu(self, dt):
         if self.up_arrow_pressed or self.down_arrow_pressed or self.enter_pressed:
             self.menu.update(self)
 
