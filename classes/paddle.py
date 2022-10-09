@@ -39,30 +39,23 @@ class Paddle:
         return self._paddle.width
 
     def update(self, dt):
-        seconds = 1500
-        rightOffset = 20
-        nextPlusX = self.x + int(dt * seconds)
-        nextMinusX = self.x - int(dt * seconds)
-
-        print(
-            nextPlusX,
-            ((utils.window_width - utils.walls_padding - self.width) + rightOffset),
-        )
+        # why 1500 * dt? Because 1500 is the speed of the paddle in pixels per second and dt is the time between frames in seconds (1 / fps) so 1500 * dt is the speed of the paddle in pixels per frame (dt)
+        nextPlusX = self.x + (1500 * dt)
+        nextMinusX = self.x - (1500 * dt)
 
         if (
             self.keys_handler[key.RIGHT]
             and self.visible
-            and nextPlusX
-            < ((utils.window_width - utils.walls_padding - self.width) + rightOffset)
+            and nextPlusX < ((utils.window_width - self.width))
         ):
-            self._paddle.x = nextPlusX
+            self.x = nextPlusX
         elif (
             self.keys_handler[key.LEFT]
             and self.visible
             and self.visible
             and nextMinusX > 0
         ):
-            self._paddle.x = nextMinusX
+            self.x = nextMinusX
 
     def draw(self):
         self._paddle.draw()
