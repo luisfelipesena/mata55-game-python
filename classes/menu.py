@@ -27,7 +27,13 @@ class Menu:
             menu_start_x, menu_start_y, menu_exit_x, menu_exit_y
         )
 
-    
+    @property
+    def visible(self):
+        return self.menu.visible
+
+    @visible.setter
+    def visible(self, bool):
+        self.menu.visible = bool
 
     def draw(self):
         self.menu.draw()

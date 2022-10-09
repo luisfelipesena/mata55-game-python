@@ -77,7 +77,16 @@ class MainWindow(pyglet.window.Window):
 
     def on_mouse_press(self, x, y, button, modifiers):
         res = self.menu.menu_buttons.inclui_ponto(x, y)
-        print(res)
+
+        if res == "start":
+            self.menu.visible = False
+            self.menu.menu_buttons.start.visible = False
+            self.menu.menu_buttons.exit.visible = False
+            self.score.visible = True
+            self.paddle.visible = True
+            self.ball.visible = True
+        elif res == "exit":
+            pyglet.app.exit()
 
     #  Será puxada para atualizar o menu
     def update_menu(self, dt):
