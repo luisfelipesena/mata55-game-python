@@ -9,4 +9,4 @@ Esse aumento de dificuldade se dará pelo aumento da velocidade da bola, haverá
 - Deyvisson Magalhaes
 - João Victor Leahy
 - Guilherme Monteiro Santos
-- Kaian Mota
+- Kaian Mota Gazineu

@@ -25,6 +25,7 @@ class MainWindow(pyglet.window.Window):
         pyglet.clock.schedule_interval(self.paddle.update, 1 / utils.fps)
         # Ball - Bola
         self.ball = Ball()
+        pyglet.clock.schedule_interval(self.ball.update, 1 / utils.fps)
         # Menu
         self.menu = Menu()
         pyglet.clock.schedule_interval(self.update_menu, 1 / (utils.fps / 10))
@@ -37,6 +38,7 @@ class MainWindow(pyglet.window.Window):
         self.up_arrow_pressed = False
         self.down_arrow_pressed = False
         self.enter_pressed = False
+        self.on_ball_hit_bottom = False
         # Handlers
         self.mouse_handler = mouse.MouseStateHandler()
 
@@ -62,6 +64,8 @@ class MainWindow(pyglet.window.Window):
             self.down_arrow_pressed = True
         if symbol == pyglet.window.key.ENTER:
             self.enter_pressed = True
+        if symbol == pyglet.window.key.K:
+            self.on_ball_hit_bottom = True
 
     def on_key_release(self, symbol, modifiers):
         if symbol == pyglet.window.key.RIGHT:
@@ -77,26 +81,35 @@ class MainWindow(pyglet.window.Window):
 
     def on_mouse_press(self, x, y, button, modifiers):
         res = self.menu.menu_buttons.inclui_ponto(x, y)
+        resRestart = self.menu.restart_menu_buttons.inclui_ponto(x, y)
 
-        if res == "start":
+        if res == "start" or resRestart == "start":
+            self.on_ball_hit_bottom = False
             self.menu.visible = False
             self.menu.menu_buttons.start.visible = False
             self.menu.menu_buttons.exit.visible = False
+            self.menu.restart_menu_buttons.start.visible = False
+            self.menu.restart_menu_buttons.exit.visible = False
             self.score.visible = True
             self.paddle.visible = True
             self.ball.visible = True
-        elif res == "exit":
+        elif res == "exit" or resRestart == "exit":
             pyglet.app.exit()
 
-    #  Será puxada para atualizar o menu
+    #  Será puxada para atualizar logicas do menu
     def update_menu(self, dt):
-        if self.up_arrow_pressed or self.down_arrow_pressed or self.enter_pressed:
-            self.menu.update(self)
+        self.menu.update(self)
 
-        if self.enter_pressed and self.menu.menu.visible == False:
+        if self.on_ball_hit_bottom == True:
+            self.paddle.can_update = False
+            self.score.can_update = False
+
+        if self.enter_pressed:
             self.paddle.visible = True
+            self.paddle.can_update = True
             self.ball.visible = True
             self.score.visible = True
+            self.score.can_update = True
 
 
 if __name__ == "__main__":

@@ -1,11 +1,12 @@
 import pyglet
 from utils import Utils
 from classes.menuButtons import MenuButtons
+from classes.restartMenuButtons import RestartMenuButtons
 
+utils = Utils()
 
 class Menu:
     def __init__(self):
-        utils = Utils()
         menu_x = utils.window_width / 2
         menu_y = utils.window_height / 2
         self.menu = pyglet.text.Label(
@@ -26,6 +27,9 @@ class Menu:
         self.menu_buttons = MenuButtons(
             menu_start_x, menu_start_y, menu_exit_x, menu_exit_y
         )
+        self.restart_menu_buttons = RestartMenuButtons(
+            menu_start_x, menu_start_y, menu_exit_x, menu_exit_y
+        )
 
     @property
     def visible(self):
@@ -38,8 +42,18 @@ class Menu:
     def draw(self):
         self.menu.draw()
         self.menu_buttons.draw()
+        self.restart_menu_buttons.draw()
 
     def update(self, window):
         self.menu_buttons.update(window)
-        if self.menu_buttons.selected == 0 and window.enter_pressed:
+        self.restart_menu_buttons.update(window)
+      
+        if window.enter_pressed:
             self.menu.visible = False
+            self.menu_buttons.visible = False
+            self.restart_menu_buttons.visible = False
+            
+        if window.on_ball_hit_bottom:
+            self.menu.visible = True
+            self.restart_menu_buttons.visible = True
+            

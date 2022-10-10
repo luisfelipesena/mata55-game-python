@@ -1,6 +1,8 @@
 import pyglet
 from utils import Utils
 
+utils = Utils()
+
 def getLabel(label, x, y):
     return pyglet.text.Label(
         "Score: {}".format(label),
@@ -14,12 +16,13 @@ def getLabel(label, x, y):
 
 class Score:
     def __init__(self):
-        utils = Utils()
         score_x = utils.walls_padding + 50
         self.score_count = 0
         score_y = utils.window_height - (utils.walls_padding * 2)
         self._score = getLabel(self.score_count, score_x, score_y)
         self._score.visible = False
+
+        self.can_update = False
 
     def draw(self):
         self._score.draw()
@@ -41,7 +44,7 @@ class Score:
         self._score = scr
 
     def update(self, dt):
-        if self._score.visible:
+        if self.can_update:
             oldX = len(str(self.score_count))
             self.score_count += int(dt)
             newX = len(str(self.score_count))
