@@ -1,5 +1,5 @@
 import pyglet
-from pyglet import shapes
+from classes.paddle import Paddle
 from utils import Utils
 
 
@@ -27,13 +27,23 @@ class Ball:
     def visible(self, bool):
         self.ball.visible = bool
 
-    def set(self):
+    def moviment(self):
         self.ball_x = self.ball_x + self.dx
-        self.ball_y = self.ball_y + self.dy
         self.ball.x = self.ball_x
+        self.ball_y = self.ball_y + self.dy
         self.ball.y = self.ball_y
 
     #tentando implementar movimento da bola
     def update(self, dt):
         if self.ball.visible == True:
-            self.set()
+            self.moviment()
+            if self.ball.x < 20 or self.ball.x > 780:
+                self.dx = -self.dx
+            elif self.ball.y > 580:
+                self.dy = -self.dy
+            elif self.ball.y < 10:
+                self.ball.x = 400
+                self.ball.y = 580
+
+            #if self.ball.y == 20 and Paddle.x == self.ball.x:
+                #self.dy = -self.dy
