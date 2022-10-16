@@ -4,6 +4,7 @@ from utils import Utils
 
 utils = Utils()
 
+
 class Paddle:
     def __init__(self):
         paddle_width = utils.window_width / 10
@@ -16,7 +17,7 @@ class Paddle:
                                                paddle_height,
                                                color=(255, 0, 0))
         self._paddle.visible = False
-     
+
         self.keys_handler = key.KeyStateHandler()
 
         self.can_update = False
@@ -42,17 +43,17 @@ class Paddle:
         return self._paddle.width
 
     def update(self, dt):
-        if self.can_update == False:
-          return
-        # why 800 * dt? Because 800 is the speed of the paddle in pixels per second and dt is the time between frames in seconds (1 / fps) so 800 * dt is the speed of the paddle in pixels per frame (dt)
-        nextPlusX = self.x + (800 * dt)
-        nextMinusX = self.x - (800 * dt)
+        nextPlusX = self.x + 10
+        nextMinusX = self.x - 10
 
-        if (self.keys_handler[key.RIGHT] and self.visible and nextPlusX <
-            ((utils.window_width - self.width))):
+        if self.can_update == False:
+            return
+
+        # move paddle to the right if the right arrow key is pressed and the paddle is not going to go out of the window to the right
+        if self.keys_handler[key.RIGHT] and nextPlusX + self.width < utils.window_width:
             self.x = nextPlusX
-        elif (self.keys_handler[key.LEFT] and self.visible and self.visible
-              and nextMinusX > 0):
+        # move paddle to the left if the left arrow key is pressed and the paddle is not going to go out of the window to the left
+        if self.keys_handler[key.LEFT] and nextMinusX > 0:
             self.x = nextMinusX
 
     def draw(self):

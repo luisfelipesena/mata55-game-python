@@ -28,7 +28,7 @@ class MainWindow(pyglet.window.Window):
         pyglet.clock.schedule_interval(self.ball.update, 1 / utils.fps)
         # Menu
         self.menu = Menu()
-        pyglet.clock.schedule_interval(self.update_menu, 1 / (utils.fps / 10))
+        pyglet.clock.schedule_interval(self.update_menu, 1 / (utils.fps / 5))
         # Score
         self.score = Score()
         pyglet.clock.schedule_interval(self.score.update, 1)
@@ -86,12 +86,19 @@ class MainWindow(pyglet.window.Window):
         if res == "start" or resRestart == "start":
             self.on_ball_hit_bottom = False
             self.menu.visible = False
+
             self.menu.menu_buttons.start.visible = False
             self.menu.menu_buttons.exit.visible = False
+
             self.menu.restart_menu_buttons.start.visible = False
             self.menu.restart_menu_buttons.exit.visible = False
+
             self.score.visible = True
+            self.score.can_update = True
+
             self.paddle.visible = True
+            self.paddle.can_update = True
+
             self.ball.visible = True
         elif res == "exit" or resRestart == "exit":
             pyglet.app.exit()
@@ -107,7 +114,9 @@ class MainWindow(pyglet.window.Window):
         if self.enter_pressed:
             self.paddle.visible = True
             self.paddle.can_update = True
+
             self.ball.visible = True
+
             self.score.visible = True
             self.score.can_update = True
 
