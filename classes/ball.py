@@ -63,10 +63,10 @@ class Ball:
                 self.dy = -self.dy
 
             # Colisão com a raquete
-            if self.ball.x > self._paddle.x and self.ball.x < self._paddle.x + self._paddle_width and self.ball.y <= 20 and self.ball.y >= 10:
+            if self.ball.x > self._paddle.x and self.ball.x < self._paddle.x + self._paddle.width and self.ball.y <= 20 and self.ball.y >= 10:
                 self.dy = -self.dy
                 self._score.score_count += 1
-                self.dy *= 1.1
-                self.dx *= 1.1
+                self.dy *= 1.05
+                self.dx *= 1.05
             elif self.ball.y < 10:
                 self.reset()
