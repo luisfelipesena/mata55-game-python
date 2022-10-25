@@ -20,8 +20,6 @@ class Paddle:
 
         self.keys_handler = key.KeyStateHandler()
 
-        self.can_update = False
-
     @property
     def x(self):
         return self._paddle.x
@@ -42,11 +40,11 @@ class Paddle:
     def width(self):
         return self._paddle.width
 
-    def update(self, dt):
+    def update(self, window):
         nextPlusX = self.x + 10
         nextMinusX = self.x - 10
 
-        if self.can_update == False:
+        if window.show_restart == True:
             return
 
         # move paddle to the right if the right arrow key is pressed and the paddle is not going to go out of the window to the right

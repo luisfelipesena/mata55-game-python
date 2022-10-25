@@ -4,10 +4,11 @@ from utils import Utils
 
 
 class Ball:
-    def __init__(self, paddle, score):
+    def __init__(self, paddle, score, menu):
         utils = Utils()
         self._paddle = paddle
         self._score = score
+        self._menu = menu
 
         # Valores base da bola
         self._base_x = (utils.window_width / 2) - (5)
@@ -24,8 +25,6 @@ class Ball:
 
         self.dx = -self._base_velocity
         self.dy = -self._base_velocity
-
-        self._is_reseted = False
 
     def draw(self):
         self.ball.draw()
@@ -45,16 +44,20 @@ class Ball:
         self.ball.y = self.ball_y
 
     # resetar a bola
-    def reset(self):
+    def reset(self, window):
         self.ball.x = self._base_x
         self.ball.y = self._base_y
         self.dx = -2.0
         self.dy = -2.0
-        self._is_reseted = True
+        self._paddle._can_update = False
+        self._score._can_update = False
+        self._menu.visible = True
+        self._menu.restart_menu_buttons.visible = True
+        window.show_restart = True
 
     # Movimento da bola - Alterar velocidade conforme o score
-    def update(self, dt):
-        if self.ball.visible == True and self._is_reseted == False:
+    def update(self, window):
+        if self.ball.visible == True and window.show_restart == False:
             self.moviment()
 
             if self.ball.x < 20 or self.ball.x > 780:
@@ -69,4 +72,4 @@ class Ball:
                 self.dy *= 1.05
                 self.dx *= 1.05
             elif self.ball.y < 10:
-                self.reset()
+                self.reset(window)

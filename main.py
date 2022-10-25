@@ -17,27 +17,28 @@ class MainWindow(pyglet.window.Window):
             utils.window_caption,
             resizable=False,
         )
-
+        self.show_restart = False
         # Walls - Parede
         self.walls = Walls()
         # Score
         self.score = Score()
         # Paddle - Raquete
         self.paddle = Paddle()
-        pyglet.clock.schedule_interval(self.paddle.update, 1 / utils.fps)
-        # Ball - Bola
-        self.ball = Ball(self.paddle, self.score)
-        pyglet.clock.schedule_interval(self.ball.update, 1 / utils.fps)
+        pyglet.clock.schedule_interval(
+            lambda dt: self.paddle.update(self), 1 / utils.fps)
         # Menu
         self.menu = Menu()
         pyglet.clock.schedule_interval(self.update_menu, 1 / (utils.fps / 5))
+        # Ball - Bola
+        self.ball = Ball(self.paddle, self.score, self.menu)
+        pyglet.clock.schedule_interval(
+            lambda dt: self.ball.update(self), 1 / utils.fps)
         # Teclas Pressionada
         self.right_arrow_pressed = False
         self.left_arrow_pressed = False
         self.up_arrow_pressed = False
         self.down_arrow_pressed = False
         self.enter_pressed = False
-        self.on_ball_hit_bottom = False
         # Handlers
         self.mouse_handler = mouse.MouseStateHandler()
 
@@ -63,8 +64,6 @@ class MainWindow(pyglet.window.Window):
             self.down_arrow_pressed = True
         if symbol == pyglet.window.key.ENTER:
             self.enter_pressed = True
-        if symbol == pyglet.window.key.K:
-            self.on_ball_hit_bottom = True
 
     def on_key_release(self, symbol, modifiers):
         if symbol == pyglet.window.key.RIGHT:
@@ -82,22 +81,19 @@ class MainWindow(pyglet.window.Window):
         res = self.menu.menu_buttons.inclui_ponto(x, y)
         resRestart = self.menu.restart_menu_buttons.inclui_ponto(x, y)
 
+        window.show_restart = False
         if res == "start" or resRestart == "start":
-            self.on_ball_hit_bottom = False
             self.menu.visible = False
 
             self.menu.menu_buttons.start.visible = False
             self.menu.menu_buttons.exit.visible = False
-
             self.menu.restart_menu_buttons.start.visible = False
             self.menu.restart_menu_buttons.exit.visible = False
 
             self.score.visible = True
             self.score.can_update = True
-
             self.paddle.visible = True
             self.paddle.can_update = True
-
             self.ball.visible = True
         elif res == "exit" or resRestart == "exit":
             pyglet.app.exit()
@@ -105,10 +101,6 @@ class MainWindow(pyglet.window.Window):
     #  Será puxada para atualizar logicas do menu
     def update_menu(self, dt):
         self.menu.update(self)
-
-        if self.on_ball_hit_bottom == True:
-            self.paddle.can_update = False
-            self.score.can_update = False
 
         if self.enter_pressed:
             self.paddle.visible = True

@@ -5,6 +5,7 @@ from classes.restartMenuButtons import RestartMenuButtons
 
 utils = Utils()
 
+
 class Menu:
     def __init__(self):
         menu_x = utils.window_width / 2
@@ -47,13 +48,8 @@ class Menu:
     def update(self, window):
         self.menu_buttons.update(window)
         self.restart_menu_buttons.update(window)
-      
+
         if window.enter_pressed:
             self.menu.visible = False
             self.menu_buttons.visible = False
             self.restart_menu_buttons.visible = False
-            
-        if window.on_ball_hit_bottom:
-            self.menu.visible = True
-            self.restart_menu_buttons.visible = True
-            
