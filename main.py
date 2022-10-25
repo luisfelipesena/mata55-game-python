@@ -20,18 +20,17 @@ class MainWindow(pyglet.window.Window):
 
         # Walls - Parede
         self.walls = Walls()
+        # Score
+        self.score = Score()
         # Paddle - Raquete
         self.paddle = Paddle()
         pyglet.clock.schedule_interval(self.paddle.update, 1 / utils.fps)
         # Ball - Bola
-        self.ball = Ball()
+        self.ball = Ball(self.paddle, self.score)
         pyglet.clock.schedule_interval(self.ball.update, 1 / utils.fps)
         # Menu
         self.menu = Menu()
         pyglet.clock.schedule_interval(self.update_menu, 1 / (utils.fps / 5))
-        # Score
-        self.score = Score()
-        pyglet.clock.schedule_interval(self.score.update, 1)
         # Teclas Pressionada
         self.right_arrow_pressed = False
         self.left_arrow_pressed = False
