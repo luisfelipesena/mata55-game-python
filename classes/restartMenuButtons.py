@@ -1,8 +1,10 @@
+from classes.ball import Ball
 import pyglet
 
 
 class RestartMenuButtons:
-    def __init__(self, start_x, start_y, exit_x, exit_y):
+    def __init__(self, ball, start_x, start_y, exit_x, exit_y):
+        self._ball = Ball(paddle=0, score=0, menu=any)
         self.start = pyglet.text.Label(
             "Reiniciar",
             font_name="Arial",
@@ -43,9 +45,10 @@ class RestartMenuButtons:
 
     def onEnter(self, window):
         if self.selected == 0:
-            self.visible = False
-            self.start.visible = False
-            window.show_restart = False
+            self.visible = True
+            Ball.moviment(self=Ball)
+            
+
         else:
             pyglet.app.exit()
 
@@ -84,7 +87,7 @@ class RestartMenuButtons:
             else:
                 self.selected = 0
 
-        if window.enter_pressed and self.visible:
+        elif window.enter_pressed and self.visible:
             self.onEnter(window)
 
         self.menu_items[self.selected].color = (255, 0, 0, 255)

@@ -49,6 +49,7 @@ class Ball:
         self.ball.y = self._base_y
         self.dx = -2.0
         self.dy = -2.0
+        self._score.score_count = 0
         self._paddle._can_update = False
         self._score._can_update = False
         self._menu.visible = True
@@ -69,7 +70,9 @@ class Ball:
             if self.ball.x > self._paddle.x and self.ball.x < self._paddle.x + self._paddle.width and self.ball.y <= 20 and self.ball.y >= 10:
                 self.dy = -self.dy
                 self._score.score_count += 1
-                self.dy *= 1.05
-                self.dx *= 1.05
+                self.dy *= 1.10
+                self.dx *= 1.10
             elif self.ball.y < 10:
                 self.reset(window)
+            
+

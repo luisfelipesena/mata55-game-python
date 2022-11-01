@@ -1,3 +1,4 @@
+from classes.ball import Ball
 import pyglet
 from utils import Utils
 from classes.menuButtons import MenuButtons
@@ -28,7 +29,7 @@ class Menu:
         self.menu_buttons = MenuButtons(
             menu_start_x, menu_start_y, menu_exit_x, menu_exit_y
         )
-        self.restart_menu_buttons = RestartMenuButtons(
+        self.restart_menu_buttons = RestartMenuButtons(Ball, 
             menu_start_x, menu_start_y, menu_exit_x, menu_exit_y
         )
 
