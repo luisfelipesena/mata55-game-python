@@ -81,8 +81,9 @@ class MainWindow(pyglet.window.Window):
         res = self.menu.menu_buttons.inclui_ponto(x, y)
         resRestart = self.menu.restart_menu_buttons.inclui_ponto(x, y)
 
-        window.show_restart = False
         if res == "start" or resRestart == "start":
+            window.show_restart = False
+
             self.menu.visible = False
 
             self.menu.menu_buttons.start.visible = False
@@ -103,6 +104,7 @@ class MainWindow(pyglet.window.Window):
         self.menu.update(self)
 
         if self.enter_pressed:
+            window.show_restart = False
             self.paddle.visible = True
             self.paddle.can_update = True
 
@@ -110,6 +112,7 @@ class MainWindow(pyglet.window.Window):
 
             self.score.visible = True
             self.score.can_update = True
+            self.score.score_count = 0
 
 
 if __name__ == "__main__":

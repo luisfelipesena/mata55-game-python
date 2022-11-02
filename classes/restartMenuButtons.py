@@ -43,12 +43,9 @@ class RestartMenuButtons:
         self.start.visible = bool
         self.exit.visible = bool
 
-    def onEnter(self, window):
+    def onEnter(self):
         if self.selected == 0:
-            self.visible = True
-            Ball.moviment(self=Ball)
-            
-
+            self.visible = False
         else:
             pyglet.app.exit()
 
@@ -88,6 +85,6 @@ class RestartMenuButtons:
                 self.selected = 0
 
         elif window.enter_pressed and self.visible:
-            self.onEnter(window)
+            self.onEnter()
 
         self.menu_items[self.selected].color = (255, 0, 0, 255)

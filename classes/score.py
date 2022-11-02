@@ -53,3 +53,6 @@ class Score:
     @score.setter
     def score(self, scr):
         self._score = scr
+
+    def __repr__(self):
+        return f'Score: {self.score_count}'

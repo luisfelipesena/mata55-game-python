@@ -38,18 +38,16 @@ class Ball:
         self.ball.visible = bool
 
     def moviment(self):
-        self.ball_x = self.ball_x + self.dx
-        self.ball.x = self.ball_x
-        self.ball_y = self.ball_y + self.dy
-        self.ball.y = self.ball_y
+        self.ball.x = self.ball.x + self.dx
+        self.ball.y = self.ball.y + self.dy
 
     # resetar a bola
     def reset(self, window):
         self.ball.x = self._base_x
         self.ball.y = self._base_y
-        self.dx = -2.0
-        self.dy = -2.0
-        self._score.score_count = 0
+        self.dx = -self._base_velocity
+        self.dy = -self._base_velocity
+
         self._paddle._can_update = False
         self._score._can_update = False
         self._menu.visible = True
@@ -74,5 +72,3 @@ class Ball:
                 self.dx *= 1.10
             elif self.ball.y < 10:
                 self.reset(window)
-            
-

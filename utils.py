@@ -14,7 +14,7 @@ class Utils(object):
     @property
     def walls_padding(self):
         return 10
-      
+
     @property
     def fps(self):
         return 60.0
