@@ -1,20 +1,13 @@
-class Utils(object):
-    @property
-    def window_width(self):
-        return 800
+class Utils:
+    window_width = 800
+    window_height = 600
+    window_caption = "One Player Pong"
+    walls_padding = 10
+    fps = 60.0
 
-    @property
-    def window_height(self):
-        return 600
-
-    @property
-    def window_caption(self):
-        return "One Player Pong"
-
-    @property
-    def walls_padding(self):
-        return 10
-
-    @property
-    def fps(self):
-        return 60.0
+    def __init__(self, window_height=None, window_width=None, window_caption=None, walls_padding=None, fps=None):
+        self.window_width = Utils.window_width
+        self.window_height = Utils.window_height
+        self.window_caption = Utils.window_caption
+        self.walls_padding = Utils.walls_padding
+        self.fps = Utils.fps
