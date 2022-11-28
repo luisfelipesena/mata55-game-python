@@ -96,6 +96,7 @@ class MainWindow(pyglet.window.Window):
             self.paddle.visible = True
             self.paddle.can_update = True
             self.ball.visible = True
+            self.score.score_count = 0
         elif res == "exit" or resRestart == "exit":
             pyglet.app.exit()
 
